@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<IfModule mod_php7.c>
+    php_value memory_limit 500M
+    php_value post_max_size 120M
+    php_value upload_max_filesize 120M
+    php_value max_file_uploads 5
+    php_value output_handler ob_gzhandler
+</IfModule>
+
