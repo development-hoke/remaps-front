@@ -33,12 +33,16 @@
     <!-- BackPack Base CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}?v=2">
     <link rel="stylesheet" href="{{ asset('vendor/backpack/overlays/backpack.bold.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom-admin.css') }}">
 
     @yield('after_styles')
     @stack('after_styles')
 
     <style type="text/css">
-	
+        html {
+            font-size:16px;
+        }
+
     	/**********chat-messages************/
     	.box.box-success.direct-chat.direct-chat-success{max-width: 700px;}
     	    .direct-chat-messages {
@@ -115,19 +119,19 @@
         a.ticket-file {
             color: #00c0ef;
         }
-		
+
 		.direct-chat .ticket-file {
 			font-size: 21px;
 			display: block;
 		}
-		
+
 		.direct-chat .ticket-file span.filename {
 			font-size: 16px;
 		}
-		
+
         /**********chat-messages-end************/
-		
-		
+
+
         .main-header .logo{ height:auto;}
         .main-header .navbar{ height:50px;}
         .pagination > .active > a{
@@ -187,16 +191,16 @@
             vertical-align: top;
             /*height: 100%;*/ max-width: 100%;
         }
-    
+
         .dis-block {
             display: block;
         }
         .navbar-nav > .user-menu a {
             padding: 8px 12px;
-            display: -webkit-box; 
+            display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
-            display: -webkit-flex; 
+            display: -webkit-flex;
             display: flex;
             -webkit-box-align: center;
             -moz-box-align: center;
@@ -209,10 +213,10 @@
             height: 34px;
             background-color: #fff;
             color: {{ ($company->theme_color != null)?$company->theme_color:"#dd4b39" }};
-            display: -webkit-box; 
+            display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
-            display: -webkit-flex; 
+            display: -webkit-flex;
             display: flex;
             -webkit-box-align: center;
             -moz-box-align: center;
@@ -224,7 +228,7 @@
             font-size: 16px;
             margin-top: 0;
         }
-        
+
         .navbar-nav > .user-menu .user-image small {
             font-size: 100%;
         }
@@ -253,11 +257,11 @@
         .dropdown.user.user-menu > a:hover {
             background: {{ ($company->theme_color != null)?$company->theme_color:"#dd4b39" }} !important;
         }
-		
+
 		.dropdown.user.user-menu > a:focus {
             background: {{ ($company->theme_color != null)?$company->theme_color:"#dd4b39" }} !important;
         }
-		
+
 		.envelope, .envelope-open {
 			background-color: {{ ($company->theme_color != null)?$company->theme_color:"#000" }} !important;
 			color: #fff;
@@ -266,15 +270,15 @@
 			vertical-align: middle;
 			border-radius: 3px;
 		}
-		
+
 		.envelope i, .envelope-open i {
 			font-size: 11px;
 		}
-		
+
 		.sidebar-menu .bg-blue {
 			background-color: {{ ($company->theme_color != null)?$company->theme_color:"#0073b7" }} !important;
 		}
-		
+
         @media (max-width: 767px){
 
             .logo{ width: 100% !important; background-color: #f9fafc !important;}
@@ -290,8 +294,8 @@
                 right: 0px;
             }
             .navbar-custom-menu .navbar-nav li .dropdown-menu li a{ color: #333 !important; }
-            .navbar-custom-menu .navbar-nav li .dropdown-menu li a:hover{ 
-                background:#f1f1f1 !important;  color: #333 !important; 
+            .navbar-custom-menu .navbar-nav li .dropdown-menu li a:hover{
+                background:#f1f1f1 !important;  color: #333 !important;
             }
         }
 
@@ -333,7 +337,7 @@
             <a href="{{ backpack_url('dashboard') }}" class="logo">
 
                 <img src="{{ asset('uploads/logo/'.$company->logo) }}">
-                
+
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -372,7 +376,7 @@
         <footer class="main-footer">
             {{ $company->copy_right_text }}
         </footer>
-      
+
     </div>
     <!-- ./wrapper -->
 
