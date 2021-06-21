@@ -12,6 +12,9 @@ return [
     'German' => 'German',
     'Russian' => 'Russian',
     'Turkish' => 'Turkish',
+    'Norway' => 'Norway',
+    'Denmark' => 'Denmark',
+    'Sweden' => 'Sweden',
 
 //    button, a tag
     'a_moreInfo' => 'More info',

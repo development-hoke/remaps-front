@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
   'English' => 'Engelsk',
   'French' => 'fransk',
@@ -11,6 +11,9 @@ return [
   'German' => 'tysk',
   'Russian' => 'Russisk',
   'Turkish' => 'Tyrkisk',
+  'Norway' => 'Norge',
+  'Denmark' => 'Danmark.',
+  'Sweden' => 'Sverige',
   'Norway' => 'Norge',
   'Denmark' => 'Danmark.',
   'Sweden' => 'Sverige',
