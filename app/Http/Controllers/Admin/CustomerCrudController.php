@@ -151,7 +151,7 @@ class CustomerCrudController extends MasterController
             'label' => __('customer_msg.contactInfo_TuningPriceType'),
             'type' => 'select2_from_array',
             'options' => \App\Models\TuningCreditGroup::where('company_id', $user->company_id)->where('group_type', 'normal')->orderBy('is_default', 'DESC')->pluck('name', 'id'),
-            'default' => $default_tier->id,
+            'default' => $default_tier ? $default_tier->id : 0,
             'allows_null' => true,
             'wrapperAttributes'=>['class'=>'form-group col-md-4 col-xs-12']
         ]);

@@ -222,4 +222,6 @@ return [
     'company_PaypalCurrencyCode' => 'Paypal currency code',
     'company_Note' => 'Note',
     'company_NoteDesc' => 'To generate your API credientials log in with your Paypal Account at',
+    'company_CustomLinkName' => 'Custom Link',
+    'company_CustomLink' => 'Custom Link URL'
 ];
