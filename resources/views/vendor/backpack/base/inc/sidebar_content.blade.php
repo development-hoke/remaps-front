@@ -89,6 +89,11 @@
             <i class="fa fa-cog"></i> <span>{{ __('customer_msg.menu_CompanySettings')}}</span>
         </a>
     </li>
+    <li>
+        <a href="{{ backpack_url('/car/browser') }}">
+            <i class='fa fa-list'></i> <span>{{ __('Browse Tuning Specs')}}</span>
+        </a>
+    </li>
 @else
     <li>
         <a href="{{ backpack_url('buy-credits') }}">
@@ -139,6 +144,11 @@
             </a>
         </li>
     @endif
+    <li>
+        <a href="{{ backpack_url('/car/browser') }}">
+            <i class='fa fa-list'></i> <span>{{ __('Browse Tuning Specs')}}</span>
+        </a>
+    </li>
 @endif
 
 

@@ -183,8 +183,10 @@ if(\Request::is('admin') || \Request::is('admin/*')){
             });
 
 		#Slider Manager routes
-			CRUD::resource('slidermanager', 'SliderManagerCrudController');
-
+        CRUD::resource('slidermanager', 'SliderManagerCrudController');
+        #Browse Car Tuning Specs
+        Route::get('/car/browser', '\App\Http\Controllers\BrowserSpecController@browser')->name('car.browser');
+        Route::get('/car/category', '\App\Http\Controllers\BrowserSpecController@category')->name('car.browser.category');
 	});
 
 }elseif(\Request::is('customer') || \Request::is('customer/*')){
@@ -237,7 +239,9 @@ if(\Request::is('admin') || \Request::is('admin/*')){
                     Route::get('tickets/{ticket}/mark-close', 'TicketsCrudController@markClose');
 		    Route::post('upload-ticket-file', 'TicketsCrudController@uploadFile');
 
-		});
+        });
+        Route::get('/car/browser', '\App\Http\Controllers\BrowserSpecController@browser')->name('car.browser');
+        Route::get('/car/category', '\App\Http\Controllers\BrowserSpecController@category')->name('car.browser.category');
 	});
 
 }else{
