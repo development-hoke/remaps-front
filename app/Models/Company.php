@@ -15,7 +15,44 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'address_line_1', 'address_line_2', 'town', 'post_code', 'country', 'state', 'logo', 'theme_color', 'copy_right_text', 'domain_link', 'main_email_address', 'support_email_address', 'billing_email_address', 'bank_account', 'bank_identification_code', 'vat_number', 'vat_percentage', 'customer_note', 'mail_driver', 'mail_host', 'mail_port', 'mail_encryption', 'mail_username', 'mail_password', 'paypal_mode', 'paypal_client_id', 'paypal_secret', 'paypal_currency_code','mail_sent','is_final_step_filled','more_info','reseller_id','reseller_password','link_name','link_value'
+        'name',
+        'address_line_1',
+        'address_line_2',
+        'town',
+        'post_code',
+        'country',
+        'state',
+        'logo',
+        'theme_color',
+        'copy_right_text',
+        'domain_link',
+        'main_email_address',
+        'support_email_address',
+        'billing_email_address',
+        'bank_account',
+        'bank_identification_code',
+        'vat_number',
+        'vat_percentage',
+        'customer_note',
+        'mail_driver',
+        'mail_host',
+        'mail_port',
+        'mail_encryption',
+        'mail_username',
+        'mail_password',
+        'paypal_mode',
+        'paypal_client_id',
+        'paypal_secret',
+        'paypal_currency_code',
+        'mail_sent',
+        'is_final_step_filled',
+        'more_info',
+        'reseller_id',
+        'reseller_password',
+        'link_name',
+        'link_value',
+        'stripe_key',
+        'stripe_secret'
     ];
 
     /**

@@ -221,7 +221,9 @@ if(\Request::is('admin') || \Request::is('admin/*')){
 			// route for post request
 			Route::post('paypal', 'PaymentController@postPaymentWithpaypal')->name('pay.with.paypal');
 			// route for check status responce
-			Route::get('paypal', 'PaymentController@getPaymentStatus')->name('paypal.payment.status');
+            Route::get('paypal', 'PaymentController@getPaymentStatus')->name('paypal.payment.status');
+            // route for confirm stripe payment
+            Route::post('stripe', 'PaymentController@stripePost')->name('pay.with.stripe');
 		});
 
 		#Orders routes

@@ -16,6 +16,8 @@ use PayPal\Api\Details;
 use PayPal\Api\Amount;
 use PayPal\Api\Item;
 use PayPal\Api\Payer;
+use Stripe;
+use Session;
 
 class PaymentController extends MasterController
 {
@@ -226,5 +228,80 @@ class PaymentController extends MasterController
             return redirect()->route('buy.credit');
         }
     }
+    public function stripePost(Request $request) {
+        Stripe\Stripe::setApiKey($this->user->company->stripe_secret);
+        $result = Stripe\Charge::create([
+            "amount" => $request->stripe_total_amount * 100,
+            "currency" => "GBP",
+            "source" => $request->stripeToken,
+            "description" => $request->stripe_item_description
+        ]);
+        $user = \Auth::guard('customer')->user();
+        if ($request->stripe_credit_type == 'normal') {
+            $totalCredits = ($user->tuning_credits + $request->stripe_item_credits);
+            $user->tuning_credits = $totalCredits;
+            $user->save();
+        } else {
+            $url = "https://evc.de/services/api_resellercredits.asp";
+            $dataArray = array(
+                'apiid'=>'j34sbc93hb90',
+                'username'=> $user->company->reseller_id,
+                'password'=> $user->company->reseller_password,
+                'verb'=>'addcustomeraccount',
+                'customer' => $user->reseller_id,
+                'credits' => $request->stripe_item_credits
+            );
+            $ch = curl_init();
+            $data = http_build_query($dataArray);
+            $getUrl = $url."?".$data;
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_URL, $getUrl);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 500);
 
+            $response = curl_exec($ch);
+            if (strpos($response, 'ok') !== FALSE) {
+                \Alert::success(__('customer.payment_success'))->flash();
+            }
+        }
+        $displableId = \App\Models\Order::wherehas('user', function($query) use($user){
+            $query->where('company_id', $user->company_id);
+        })->max('displayable_id');
+
+        $displableId++;
+
+        /* save order */
+        $order = new \App\Models\Order();
+        $order->user_id = $this->user->id;
+        $order->transaction_id = $result->balance_transaction;
+        $order->invoice_id = $result->id;
+        $order->vat_number = $request->stripe_vat_number;
+        $order->vat_percentage = $request->stripe_vat_percentage;
+        $order->tax_amount = $request->stripe_item_tax;
+        $order->amount = $result->amount_captured / 100;
+        $order->description = $result->description;
+        $order->status = config('site.order_status.completed');
+        $order->displayable_id = $displableId;
+        $order->save();
+
+        /* save transaction */
+        $transaction = new \App\Models\Transaction();
+        $transaction->user_id = \Auth::guard('customer')->user()->id;
+        $transaction->credits = number_format($request->item_credits, 2);
+        if ($request->stripe_credit_type == 'normal') {
+            $transaction->description = "Tuning credits purchase";
+        } else {
+            $transaction->description = "EVC credits purchase";
+        }
+        $transaction->status = config('site.transaction_status.completed');
+        $transaction->save();
+
+        if ($result->status == 'succeeded') {
+            \Alert::success(__('customer.payment_success'))->flash();
+            return redirect()->route('buy.credit');
+        }
+        \Alert::error(__('customer.payment_failed'))->flash();
+        return redirect()->route('buy.credit');
+    }
 }

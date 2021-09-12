@@ -84,6 +84,7 @@ return [
     'menu_Orders' => 'Orders',
     'menu_Transactions' => 'Transactions',
     'menu_Customers' => 'Customers',
+    'menu_Staffs' => 'Staffs',
     'menu_EmailTemplates' => 'Email Templates',
     'menu_TuningCredit' => 'Tuning credit prices',
     'menu_EVCTuningCredit' => 'EVC Tuning credit prices',
@@ -223,5 +224,8 @@ return [
     'company_Note' => 'Note',
     'company_NoteDesc' => 'To generate your API credientials log in with your Paypal Account at',
     'company_CustomLinkName' => 'Custom Link',
-    'company_CustomLink' => 'Custom Link URL'
+    'company_CustomLink' => 'Custom Link URL',
+    'company_Stripeinfo' => 'Stripe Information',
+    'company_StripeKey' => 'Stripe Key',
+    'company_StripeSecret' => 'Stripe Secret',
 ];

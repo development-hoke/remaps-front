@@ -482,6 +482,36 @@ class CompanyCrudController extends MasterController
             'wrapperAttributes'=>['class'=>'form-group col-md-6 col-xs-12']
         ], 'create');
 
+        $this->crud->addField([
+            'name'=> 'blank22',
+            'type' => 'blank',
+            'tab' => 'Stripe information'
+        ], 'create');
+
+        $this->crud->addField([
+            'name' => 'stripe_key',
+            'label' => "Stripe Key <small class='text-muted'>(optional)</small>",
+            'type' => 'text',
+            'tab' => 'Stripe information',
+            'attributes'=>['placeholder'=>'Stripe Key'],
+            'wrapperAttributes'=>['class'=>'form-group col-md-6 col-xs-12']
+        ], 'create');
+
+        $this->crud->addField([
+            'name'=> 'blank23',
+            'type' => 'blank',
+            'tab' => 'Stripe information'
+        ], 'create');
+
+        $this->crud->addField([
+            'name' => 'stripe_secret',
+            'label' => "Stripe Secret Key <small class='text-muted'>(optional)</small>",
+            'type' => 'text',
+            'tab' => 'Stripe information',
+            'attributes'=>['placeholder'=>'Stripe Secret Key'],
+            'wrapperAttributes'=>['class'=>'form-group col-md-6 col-xs-12']
+        ], 'create');
+
 
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
@@ -624,6 +654,13 @@ class CompanyCrudController extends MasterController
                     'paypal_currency_code'=> 'bail|nullable|string|max:10'
                 ]);
                 $requestData->replace($request->only(['paypal_client_id', 'paypal_secret', 'paypal_currency_code']));
+                break;
+            case 'stripeinformation':
+                $validator = Validator::make($request->only(['stripe_key', 'stripe_secret']), [
+                    'stripe_key'=> 'bail|nullable|string|max:200',
+                    'stripe_secret'=> 'bail|nullable|string|max:200',
+                ]);
+                $requestData->replace($request->only(['id', 'stripe_key', 'stripe_secret']));
                 break;
             default:
                 break;
@@ -783,6 +820,13 @@ class CompanyCrudController extends MasterController
                     'paypal_currency_code'=> 'bail|nullable|string|max:10'
                 ]);
                 $requestData->replace($request->only(['id', 'paypal_client_id', 'paypal_secret', 'paypal_currency_code']));
+                break;
+            case 'stripeinformation':
+                $validator = Validator::make($request->only(['stripe_key', 'stripe_secret']), [
+                    'stripe_key'=> 'bail|nullable|string|max:200',
+                    'stripe_secret'=> 'bail|nullable|string|max:200',
+                ]);
+                $requestData->replace($request->only(['id', 'stripe_key', 'stripe_secret']));
                 break;
             default:
                 break;

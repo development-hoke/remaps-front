@@ -10,6 +10,11 @@
             <i class="fa fa-fw fa-users"></i> <span>{{ __('customer_msg.menu_Customers')}}</span>
         </a>
     </li>
+    {{-- <li>
+        <a href="{{ backpack_url('customer') }}">
+            <i class="fa fa-fw fa-users"></i> <span>{{ __('customer_msg.menu_Staffs')}}</span>
+        </a>
+    </li> --}}
     <li>
         <a href="{{ backpack_url('file-service') }}">
             <i class="fa fa-download"></i> <span>{{ __('customer_msg.menu_FileServices')}}</span>
