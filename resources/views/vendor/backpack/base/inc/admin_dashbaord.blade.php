@@ -13,7 +13,9 @@
 
                     </div>
                     <div class="box-footer">
+                        @if (!$user->is_staff)
                         <a href="{{ route('subscription.packages') }}" class="btn btn-danger"> {{__('customer_msg.btn_ChoosePackages')}}</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -104,8 +106,10 @@
 						<p> <b>Your Account Type : </b> @php echo $accountType @endphp</p>
 					</div>
 
-					<div class="box-body display-flex-wrap" style="display: flex; flex-wrap: wrap;">
-						<a href="company/@php echo $user->company->id @endphp/company-account-type" class="btn btn-danger">Want to  @php echo $changeAccountType @endphp ? </a>
+                    <div class="box-body display-flex-wrap" style="display: flex; flex-wrap: wrap;">
+                        @if (!$user->is_staff)
+                        <a href="company/@php echo $user->company->id @endphp/company-account-type" class="btn btn-danger">Want to  @php echo $changeAccountType @endphp ? </a>
+                        @endif
 					</div>
 				</div>
 			</div>
@@ -150,7 +154,8 @@
                 </tbody>
             </table>
         </div>
-
-        <a href="{{ backpack_url('order') }}" class="btn btn-danger">{{__('customer_msg.btn_ViewAllOrders')}} <i class="fa fa-arrow-right"></i></a>
+        @if (!$user->is_staff)
+            <a href="{{ backpack_url('order') }}" class="btn btn-danger">{{__('customer_msg.btn_ViewAllOrders')}} <i class="fa fa-arrow-right"></i></a>
+        @endif
     </div>
 </div>

@@ -65,27 +65,26 @@
 							{{ Form::open(array('url' => 'user-register')) }}
 								@csrf
 
-								<!--------<div class="row">
+								<div class="row">
 									<div class="col-sm-12">
-										<div class="col-sm-6">
-											<div class="form-group{{ $errors->has('tuning_credit_group_id') ? ' has-error' : '' }}">
-
-												<label class="control-label">{{ __('Tuning price type') }}</label>
-												{!! Form::select('tuning_credit_group_id', $tuningpricetype, null ,['class' => 'form-control']) !!}
-												@if ($errors->has('tuning_credit_group_id'))
-													<span class="help-block">
-														<strong>{{ $errors->first('tuning_credit_group_id') }}</strong>
-													</span>
-												@endif
-											</div>
-										</div>
-
 										<div class="col-sm-6">
 											<div class="form-group{{ $errors->has('lang') ? ' has-error' : '' }}">
 												<label class="control-label">{{ __('Language') }}</label>
 
 												@php
-													$lang = ['en'=> 'English'];
+													$lang = [
+                                                        'en'=> 'English',
+                                                        'fr'=> 'French',
+                                                        'es'=> 'Spanish',
+                                                        'pt'=> 'Portuguese',
+                                                        'it'=> 'Italian',
+                                                        'ja'=> 'Japanese',
+                                                        'nl'=> 'Dutch',
+                                                        'pl'=> 'Polish',
+                                                        'de'=> 'German',
+                                                        'ru'=> 'Russian',
+                                                        'tr'=> 'Turkish'
+                                                    ];
 												@endphp
 												{!! Form::select('lang', $lang, null ,['class' => 'form-control']) !!}
 												@if ($errors->has('lang'))
@@ -96,7 +95,7 @@
 											</div>
 										</div>
 									</div>
-								</div>--------------------->
+								</div>
 
 
 								<div class="row">

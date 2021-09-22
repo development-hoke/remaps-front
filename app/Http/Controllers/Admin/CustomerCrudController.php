@@ -8,6 +8,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Requests\TransactionRequest;
 use App\Mail\WelcomeCustomer;
 use App\User;
+use App\Models\Log;
 /**
  * Class CustomerCrudController
  * @param App\Http\Controllers\Admin
@@ -328,6 +329,12 @@ class CustomerCrudController extends MasterController
             $redirect_location = parent::storeCrud($request);
             $user = $this->crud->entry;
             $token = app('auth.password.broker')->createToken($user);
+            Log::create([
+                'staff_id' => $user->id,
+                'table' => 'Customer',
+                'action' => 'CREATE',
+                'id' => $this->crud->entry->id,
+            ]);
 			try{
             	\Mail::to($user->email)->send(new WelcomeCustomer($user, $token));
 			}catch(\Exception $e){
@@ -373,8 +380,15 @@ class CustomerCrudController extends MasterController
     {
         try{
             $redirect_location = parent::updateCrud($request);
+            Log::create([
+                'staff_id' => $this->user->id,
+                'table' => 'Customer',
+                'action' => 'CREATE',
+                'id' => $this->crud->entry->id,
+            ]);
             return $redirect_location;
         }catch(\Exception $e){
+            dd($e);
             \Alert::error(__('admin.opps'))->flash();
             return redirect(url('admin/customer'));
         }

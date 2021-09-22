@@ -37,6 +37,7 @@ class User extends Authenticatable
         'state',
         'is_master',
         'is_admin',
+        'is_staff',
         'is_active',
         'tuning_credits',
         'last_login',

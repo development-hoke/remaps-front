@@ -285,6 +285,10 @@ class FileServiceCrudController extends MasterController
     public function store(StoreRequest $request)
     {
         try{
+            if ($this->user->company->notify_check == 1) {
+                \Alert::error('Company is closed now')->flash();
+                return redirect(url('customer/file-service'));
+            }
             $redirect_location = parent::storeCrud($request);
             $fileService = $this->crud->entry;
             $fileService->year = 1990 + $fileService->year;

@@ -1,5 +1,5 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
-@if($user->is_admin)
+@if($user->is_admin && !$user->is_staff)
     <li>
         <a href="{{ backpack_url('dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span>
@@ -10,11 +10,11 @@
             <i class="fa fa-fw fa-users"></i> <span>{{ __('customer_msg.menu_Customers')}}</span>
         </a>
     </li>
-    {{-- <li>
-        <a href="{{ backpack_url('customer') }}">
+    <li>
+        <a href="{{ backpack_url('staff') }}">
             <i class="fa fa-fw fa-users"></i> <span>{{ __('customer_msg.menu_Staffs')}}</span>
         </a>
-    </li> --}}
+    </li>
     <li>
         <a href="{{ backpack_url('file-service') }}">
             <i class="fa fa-download"></i> <span>{{ __('customer_msg.menu_FileServices')}}</span>
@@ -97,6 +97,32 @@
     <li>
         <a href="{{ backpack_url('/car/browser') }}">
             <i class='fa fa-list'></i> <span>{{ __('Browse Tuning Specs')}}</span>
+        </a>
+    </li>
+@elseif ($user->is_staff)
+    <li>
+        <a href="{{ backpack_url('dashboard') }}">
+            <i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ backpack_url('customer') }}">
+            <i class="fa fa-fw fa-users"></i> <span>{{ __('customer_msg.menu_Customers')}}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ backpack_url('file-service') }}">
+            <i class="fa fa-download"></i> <span>{{ __('customer_msg.menu_FileServices')}}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ backpack_url('tickets') }}">
+            <i class="fa fa-comments"></i> <span>{{ __('customer_msg.menu_SupportTickets')}}</span>
+            @if($tickets_count)
+                <span class="pull-right-container">
+              <small class="label pull-right bg-blue"><i class="fa fa-envelope"></i></small>
+            </span>
+            @endif
         </a>
     </li>
 @else

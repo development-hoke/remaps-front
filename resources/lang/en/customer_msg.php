@@ -199,6 +199,7 @@ return [
     'company_SMTPinfo' => 'SMTP Information',
     'company_Paypalinfo' => 'Paypal Information',
     'company_EvcCredits' => 'EVC Credits',
+    'company_OpenHour' => 'Open Hour',
     'company_StateProvince' => 'State / Province',
     'company_Logo' => 'Logo',
     'company_ThemeColor' => 'Theme color',

@@ -334,11 +334,6 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="{{ backpack_url('dashboard') }}" class="logo">
-
-                <img src="{{ asset('uploads/logo/'.$company->logo) }}">
-
-            </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->

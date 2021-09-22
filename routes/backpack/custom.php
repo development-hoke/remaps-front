@@ -44,7 +44,12 @@ if(\Request::is('admin') || \Request::is('admin/*')){
 			Route::get('customer/{user}/file-services','CustomerCrudController@fileServices');
 
 			Route::get('customer/file-service/{fileService}/delete','CustomerCrudController@deleteFileService');
-		});
+        });
+
+        CRUD::resource('staff', 'StaffCrudController')->with(function(){
+            Route::get('staff/{user}/switch-account','StaffCrudController@switchAsStaff');
+        });
+
 
 		#File service routes
 
