@@ -1,4 +1,14 @@
 <div class="row">
+    @if ($openStatus == 2)
+    <div class="col-lg-12">
+        <div class="callout callout-warning">
+            <h4>{{ $company->name }}</h4>
+            <p>We are currently closed for file services. Please take note of our opening hours in your customer Dashboard.</p>
+            <p>When we open you will be able to upload your file for processing.</p>
+            <p>Thank you.</p>
+        </div>
+    </div>
+    @endif
     <div class="col-lg-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-aqua">

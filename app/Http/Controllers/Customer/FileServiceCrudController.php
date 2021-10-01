@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Mail\FileServiceCreated;
+use App\Mail\FileServiceLimited;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\FileServiceRequest as StoreRequest;
 use App\Http\Requests\FileServiceRequest as UpdateRequest;
@@ -43,6 +44,11 @@ class FileServiceCrudController extends MasterController
 
 		$this->crud->removeButton('delete');
         $this->crud->denyAccess('delete');
+        $open_status = $this->open_status();
+        if ($open_status == 2) {
+            $this->crud->denyAccess('create');
+            $this->crud->denyAccess('update');
+        }
 
         $user = \Auth::guard('customer')->user();
 
@@ -273,6 +279,12 @@ class FileServiceCrudController extends MasterController
             'wrapperAttributes'=>['class'=>'form-group col-md-10 col-xs-12']
         ], 'create');
 
+        $this->crud->addField([
+            'name' => 'status',
+            'type' => 'hidden',
+            'value' => $open_status == 1 ? 'P' : 'O'
+        ]);
+
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
     }
@@ -284,9 +296,12 @@ class FileServiceCrudController extends MasterController
      */
     public function store(StoreRequest $request)
     {
+        $open_status = $this->open_status();
         try{
-            if ($this->user->company->notify_check == 1) {
-                \Alert::error('Company is closed now')->flash();
+            if ($open_status == 1) { // allow file service
+                \Alert::warning('File Services are closed.')->flash();
+            } else if ($open_status == 2) { // deny file service
+                \Alert::warning('File Services are closed.')->flash();
                 return redirect(url('customer/file-service'));
             }
             $redirect_location = parent::storeCrud($request);
@@ -328,7 +343,11 @@ class FileServiceCrudController extends MasterController
                 $transaction->type    = 'S';
                 $transaction->save();
                 try{
-                    \Mail::to($this->company->owner->email)->send(new FileServiceCreated($fileService));
+                    if ($open_status == -1) {
+                        \Mail::to($this->company->owner->email)->send(new FileServiceCreated($fileService));
+                    } else if ($open_status == 1) {
+                        \Mail::to($user->email)->send(new FileServiceLimited($fileService));
+                    }
                 }catch(\Exception $e){
                     \Alert::error('Error in SMTP: '.__('admin.opps'))->flash();
                 }
@@ -504,5 +523,22 @@ class FileServiceCrudController extends MasterController
             return redirect()->back()->withInput($request->all());
         }
         return redirect('customer/file-service');
+    }
+
+    public function open_status() {
+        $user = \Auth::guard('customer')->user();
+        $company = $user->company;
+        $day = lcfirst(date('l'));
+        $daymark_from = substr($day, 0, 3).'_from';
+        $daymark_to = substr($day, 0, 3).'_to';
+
+        $open_status = -1;
+        if ($company->open_check) {
+            if ($company->$daymark_from && str_replace(':', '', $company->$daymark_from) > date('Hi')
+                || $company->$daymark_to && str_replace(':', '', $company->$daymark_to) < date('Hi')) {
+                $open_status = $company->notify_check == 0 ? 1 : 2;
+            }
+        }
+        return $open_status;
     }
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Requests\AdminFileServiceRequest as StoreRequest;
 use App\Http\Requests\AdminFileServiceRequest as UpdateRequest;
 use App\Mail\TicketFileCreated;
-
+use App\Models\FileService;
 /**
  * Class FileServiceCrudController
  * @param App\Http\Controllers\Admin
@@ -44,6 +44,10 @@ class FileServiceCrudController extends MasterController
         $this->crud->query->whereHas('user', function($query) use($user){
             return $query->where('company_id', $user->company_id);
         });
+
+        FileService::whereHas('user', function($query) use($user){
+            $query->where('company_id', $user->company_id);
+        })->where('status', 'P')->update(['status' => 'O']);
 
         $this->crud->query->orderBy('id', 'DESC');
         if(\Request::query('status')){

@@ -68,6 +68,7 @@ class Company extends Model
         'sun_from',
         'sun_to',
         'notify_check',
+        'open_check'
     ];
 
     /**

@@ -260,6 +260,17 @@
     <script src="{{ asset('vendor/adminlte/bower_components/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
     <script>
         $(document).ready(function(){
+            @if ($company->open_check == 0)
+                $('.oh-container').hide();
+            @endif
+            $('input[name=open_check]').on('change', function() {
+                let val = $(this).is(":checked");
+                if (val) {
+                    $('.oh-container').show();
+                } else {
+                    $('.oh-container').hide();
+                }
+            })
             $("input[type=file]").fileinput({
                 showUpload: false,
                 showRemove: false,

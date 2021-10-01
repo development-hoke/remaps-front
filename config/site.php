@@ -36,7 +36,8 @@ return [
 		'new-file-ticket-created'=>'Reply to Your ticket',
 		'reply-to-your-ticket' =>'Ticket Reply',
 		'customer-activate-email' =>'Company  Registration Activate',
-		'new-company-apply'=>'New Company apply'
+        'new-company-apply'=>'New Company apply',
+        'file-service-upload-limited'=>'File Service Upload Limited'
     ],
 
     'currency_sign'=>'£',
@@ -60,6 +61,7 @@ return [
         'O'=>'Open',
         'W'=>'Waiting',
         'C'=>'Completed',
+        'P'=>'Upload Pending',
     ],
 
     'file_service_gearbox'=>[

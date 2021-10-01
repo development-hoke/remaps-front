@@ -31,6 +31,19 @@ class DashboardController extends MasterController
             $data['complatedFileServices'] = $this->user->fileServices()->where('status', 'C')->count();
             $data['resellerId'] = $this->user->reseller_id;
 
+            $company = $this->user->company;
+            $day = lcfirst(date('l'));
+            $daymark_from = substr($day, 0, 3).'_from';
+            $daymark_to = substr($day, 0, 3).'_to';
+            $open_status = -1;
+            if ($company->open_check) {
+                if ($company->$daymark_from && str_replace(':', '', $company->$daymark_from) > date('Hi')
+                    || $company->$daymark_to && str_replace(':', '', $company->$daymark_to) < date('Hi')) {
+                    $open_status = $company->notify_check == 0 ? 1 : 2;
+                }
+            }
+            $data['openStatus'] = $open_status;
+
             $url = "https://evc.de/services/api_resellercredits.asp";
             $dataArray = array(
                 'apiid'=>'j34sbc93hb90',

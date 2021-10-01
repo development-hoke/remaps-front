@@ -41,7 +41,7 @@
 									</div>
 									<div class="form-group col-md-6 col-xs-12 {{ $errors->has('make') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_Make')}}</label>
-								        <input name="make" value="{{ (old('make'))?old('make'):$entry->make?$entry->make:'' }}" placeholder="Make" class="form-control" type="text">
+								        <input name="make" value="{{ (old('make'))?old('make'):($entry->make?$entry->make:'') }}" placeholder="Make" class="form-control" type="text">
 								        @if ($errors->has('make'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('make') }}</strong>
@@ -50,7 +50,7 @@
 								    </div>
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('model') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_Model')}}</label>
-								        <input name="model" value="{{ (old('model'))?old('model'):$entry->model?$entry->model:'' }}" placeholder="Model" class="form-control" type="text">
+								        <input name="model" value="{{ (old('model')) ? old('model') : ($entry->model ? $entry->model : '') }}" placeholder="Model" class="form-control" type="text">
 								        @if ($errors->has('model'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('model') }}</strong>
@@ -59,7 +59,7 @@
 								    </div>
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('generation') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_Generation')}}</label>
-								        <input name="generation" value="{{ (old('generation'))?old('generation'):$entry->generation?$entry->generation:'' }}" placeholder="Generation" class="form-control" type="text">
+								        <input name="generation" value="{{ (old('generation'))?old('generation'):($entry->generation?$entry->generation:'') }}" placeholder="Generation" class="form-control" type="text">
 								        @if ($errors->has('generation'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('generation') }}</strong>
@@ -68,7 +68,7 @@
 								    </div>
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('engine') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_Engine')}}</label>
-								        <input name="engine" value="{{ (old('engine'))?old('engine'):$entry->engine?$entry->engine:'' }}" placeholder="Engine" class="form-control" type="text">
+								        <input name="engine" value="{{ (old('engine'))?old('engine'):($entry->engine?$entry->engine:'') }}" placeholder="Engine" class="form-control" type="text">
 								        @if ($errors->has('engine'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('engine') }}</strong>
@@ -77,7 +77,7 @@
 								    </div>
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('ecu') ? ' has-error' : '' }}">
 								    	<label>ECU</label>
-								        <input name="ecu" value="{{ (old('ecu'))?old('ecu'):$entry->ecu?$entry->ecu:'' }}" placeholder="ECU" class="form-control" type="text">
+								        <input name="ecu" value="{{ (old('ecu'))?old('ecu'):($entry->ecu?$entry->ecu:'') }}" placeholder="ECU" class="form-control" type="text">
 								        @if ($errors->has('ecu'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('ecu') }}</strong>
@@ -87,7 +87,7 @@
 
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('engine_hp') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_EngineHP')}}</label>
-								        <input name="engine_hp" value="{{ (old('engine_hp'))?old('engine_hp'):$entry->engine_hp?$entry->engine_hp:'' }}" placeholder="Engine HP" class="form-control" type="number">
+								        <input name="engine_hp" value="{{ (old('engine_hp')) ? old('engine_hp') : ($entry->engine_hp ? $entry->engine_hp : '') }}" placeholder="Engine HP" class="form-control" type="number">
 								        @if ($errors->has('engine_hp'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('engine_hp') }}</strong>
@@ -100,7 +100,7 @@
 								    		@if(count(range(1990, date('Y'))))
 								    			@foreach(range(1990, date('Y')) as $year)
 								    				@php
-								    					$selected = (old('year'))?old('year'):$entry->year?$entry->year:'';
+								    					$selected = (old('year')) ? old('year') : ($entry->year ? $entry->year : '');
 								    				@endphp
 								    				<option value="{{ $year }}" {{ ($selected == $year)?'selected=selected':'' }}>{{ $year }}</option>
 								    			@endforeach
@@ -119,7 +119,7 @@
 								    		@if(count(config('site.file_service_gearbox')))
 								    			@foreach(config('site.file_service_gearbox') as $key => $gearbox)
 								    				@php
-								    					$selected = (old('gearbox'))?old('gearbox'):$entry->gearbox?$entry->gearbox:'';
+								    					$selected = (old('gearbox')) ? old('gearbox') : ($entry->gearbox ? $entry->gearbox : '');
 								    				@endphp
 								    				<option value="{{ $key }}" {{ ($selected == $key)?'selected=selected':'' }}>{{ $gearbox }}</option>
 								    			@endforeach
@@ -169,7 +169,7 @@
 								    </div>
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('license_plate') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_LicensePlate')}}</label>
-								        <input name="license_plate" value="{{ (old('license_plate'))?old('license_plate'):$entry->license_plate?$entry->license_plate:'' }}" placeholder="License plate" class="form-control" type="text">
+								        <input name="license_plate" value="{{ (old('license_plate')) ? old('license_plate') : ($entry->license_plate ? $entry->license_plate : '') }}" placeholder="License plate" class="form-control" type="text">
 								        @if ($errors->has('license_plate'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('license_plate') }}</strong>
@@ -179,7 +179,7 @@
 
 								    <div class="form-group col-md-6 col-xs-12 {{ $errors->has('vin') ? ' has-error' : '' }}">
 								    	<label>{{__('customer_msg.service_MilesKM')}}<small class="text-muted">({{__('customer_msg.service_Optional')}})</small></label>
-								        <input name="vin" value="{{ (old('vin'))?old('vin'):$entry->vin?$entry->vin:'' }}" placeholder="VIN" class="form-control" type="text">
+								        <input name="vin" value="{{ (old('vin'))?old('vin'):($entry->vin?$entry->vin:'') }}" placeholder="VIN" class="form-control" type="text">
 								        @if ($errors->has('vin'))
 				                            <span class="help-block">
 				                                <strong>{{ $errors->first('vin') }}</strong>

@@ -708,7 +708,17 @@ class CompanyCrudController extends MasterController
 					$companyUser->is_admin = 1;
 					if($companyUser->save()){
 
-						$emailTemplates = \App\Models\EmailTemplate::where('company_id', $this->company->id)->whereIn('label', ['customer-welcome-email', 'new-file-service-created-email', 'file-service-modified-email', 'file-service-processed-email','new-ticket-created','new-file-ticket-created','reply-to-your-ticket'])->get();
+                        $emailTemplates = \App\Models\EmailTemplate::where('company_id', $this->company->id)
+                            ->whereIn('label', [
+                                'customer-welcome-email',
+                                'new-file-service-created-email',
+                                'file-service-modified-email',
+                                'file-service-processed-email',
+                                'new-ticket-created',
+                                'new-file-ticket-created',
+                                'reply-to-your-ticket',
+                                'file-service-upload-limited'
+                            ])->get();
 
 						if($emailTemplates->count() > 0){
 							foreach($emailTemplates as $emailTemplate){
